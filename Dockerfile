@@ -1,11 +1,11 @@
-# Usa una imagen base de Java
-FROM openjdk:17-jdk-slim as builder
+# Usa una imagen de Maven con Java preinstalado
+FROM maven:3.8.6-openjdk-17-slim as builder
 
 # Establece el directorio de trabajo
 WORKDIR /app
 
 # Copia el archivo pom.xml y las dependencias de la aplicación
-COPY pom.xml .
+COPY pom.xml ./
 COPY src ./src
 
 # Compila la aplicación
