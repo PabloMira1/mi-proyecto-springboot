@@ -1,14 +1,24 @@
-# Usa una imagen de base de Java
-FROM openjdk:17-jdk-slim
+# Usa una imagen base de Java
+FROM openjdk:17-jdk-slim as builder
 
 # Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo JAR en el contenedor
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+# Copia el archivo pom.xml y las dependencias de la aplicación
+COPY pom.xml .
+COPY src ./src
 
-# Expone el puerto que usará la aplicación
+# Compila la aplicación
+RUN mvn clean package -DskipTests
+
+# Usar una imagen más ligera para ejecutar la aplicación
+FROM openjdk:17-jdk-slim
+
+# Copia el archivo JAR desde la etapa de construcción
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expone el puerto de la aplicación
 EXPOSE 8081
 
-# Comando para ejecutar el archivo JAR
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Comando para ejecutar la aplicación
+ENTRYPOINT ["java", "-jar", "/app.jar"]
