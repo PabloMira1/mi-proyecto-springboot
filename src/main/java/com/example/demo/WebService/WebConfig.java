@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://mi-proyecto-vue-one.vercel.app") // O la URL donde esté desplegado tu frontend
+                .allowedOrigins("https://mi-proyecto-neon.vercel.app") // O la URL donde esté desplegado tu frontend
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true);
