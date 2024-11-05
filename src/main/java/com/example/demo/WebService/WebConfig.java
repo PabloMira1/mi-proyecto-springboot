@@ -1,6 +1,5 @@
 package com.example.demo.WebService;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,15 +13,19 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.disable())  // Configura CORS usando Lambda DSL
-            .csrf(csrf -> csrf.disable())  // Desactiva CSRF si es necesario
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()  // Permite todas las solicitudes (ajusta según tus requisitos de seguridad)
-            );
+                .requiresChannel(channel -> channel
+                        .anyRequest().requiresSecure() // Redirige HTTP a HTTPS
+                )
+                .cors(cors -> cors.disable()) // Configura CORS usando Lambda DSL
+                .csrf(csrf -> csrf.disable()) // Desactiva CSRF si es necesario
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll() // Permite todas las solicitudes (ajusta según tus requisitos de
+                                                  // seguridad)
+                );
 
         return http.build();
     }
-    
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
