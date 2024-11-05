@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.example.demo.Xml.XmlExportService;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin(origins = "https://mi-proyecto-neon.vercel.app") // Agrega la URL de tu frontend aquí
 public class ProductController {
 
     @Autowired
