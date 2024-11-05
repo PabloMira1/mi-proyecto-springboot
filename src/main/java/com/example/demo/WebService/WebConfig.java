@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
         http
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(List.of("https://mi-proyecto-neon.vercel.app")); 
+                configuration.setAllowedOrigins(List.of("https://mi-proyecto-neon.vercel.app")); // Cambia esto por tu dominio real
                 configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
                 configuration.setAllowCredentials(true);
